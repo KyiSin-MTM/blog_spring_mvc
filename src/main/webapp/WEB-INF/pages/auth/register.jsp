@@ -9,10 +9,15 @@
 				<h4>Register</h4>
 			</div>
 			<div class="card-body">
-				<c:url var="registerAction" value="/register"></c:url>
+				<c:url var="registerAction" value="/users/store"></c:url>
 				<form:form action="${registerAction}" method="POST"
 					modelAttribute="registerForm">
-					<div class="row">
+                    <c:if test="${errorMessage != null }">
+                        <div class="alert text-danger text-center">
+                            <strong>${errorMessage}</strong>
+                        </div>
+                    </c:if>
+                    <div class="row">
 						<div class="col-12 mb-2">
 							<div class="form-group">
 								<label>Name: </label>
@@ -37,14 +42,26 @@
 								<form:errors path="password" cssClass="text-danger" />
 							</div>
 						</div>
+                        <div class="col-12 mb-2">
+                            <div class="form-group">
+                                <label>Confirm Password: </label>
+                                <form:input type="password" path="confirmPassword" class="form-control"
+                                    placeholder="Enter Password" />
+                                <form:errors path="confirmPassword" cssClass="text-danger" />
+                            </div>
+                        </div>
 						<div class="col-12 mb-2">
 							<div class="mb-3">
-								<label for="Textarea" class="form-label">Select a Role: </label>
-								<form:select class="select" path="role">
-			                      <option value="2">Option 1</option>
-			                      <option value="3">Option 2</option>
-			                      <option value="4">Option 3</option>
-			                    </form:select>
+								<label for="role">Select Role:</label><br>
+                                <form:select path="role.id"
+                                  class="form-select">
+                                  <%-- <form:options items="${roles}" itemValue="id" itemLabel="name" /> --%>
+                                  <c:forEach var="role" items="${roles}"
+                                    varStatus="loop">
+                                    <form:option value="${role.id}" label="${role.name}" />
+                                  </c:forEach>
+                                </form:select>
+                                <form:errors path="role.id" cssClass="text-danger" />
 							</div>
 						</div>
 						<div class="col-12 mt-2">

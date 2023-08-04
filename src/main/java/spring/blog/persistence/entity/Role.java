@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import spring.blog.bl.dto.RoleDto;
 
 @Entity
 @Table(name="roles")
@@ -27,5 +28,10 @@ public class Role {
 	
 	public Role() {
 		super();
+	}
+	
+	public Role(RoleDto roleDto) {
+		this.id = roleDto.getId();
+		this.name = roleDto.getName();
 	}
 }

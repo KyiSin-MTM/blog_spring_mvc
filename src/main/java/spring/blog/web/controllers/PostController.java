@@ -1,7 +1,9 @@
 package spring.blog.web.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.blog.bl.dto.PostDto;
 import spring.blog.bl.services.posts.PostService;
+import spring.blog.persistence.entity.Post;
+import spring.blog.persistence.entity.User;
 import spring.blog.web.form.PostForm;
 
 @Controller
@@ -45,7 +49,9 @@ public class PostController {
 	}
 	
 	@RequestMapping("/posts")
-	public ModelAndView index() {
+	public ModelAndView index(HttpSession session) {
+		User user = (User)session.getAttribute("loginedUser");
+		System.out.println("user" + user);
 		List<PostDto> posts = this.postService.getAllPosts();
 		ModelAndView mv = new ModelAndView("postListView");
 		mv.addObject("posts", posts);
@@ -78,5 +84,24 @@ public class PostController {
 		this.postService.deletePostById(id);
 		
 		return "redirect:/posts";
+	}
+	
+	@RequestMapping("/posts/search")
+	public ModelAndView search(@RequestParam("searchKey") String searchKey) {
+		List<PostDto> posts = this.postService.getSearchPosts(searchKey);
+		ModelAndView mv = new ModelAndView("postListView");
+		mv.addObject("posts", posts);
+		mv.addObject("searchKey", searchKey);
+		return mv;
+	}
+	
+	@RequestMapping("/posts/excel/export")
+	public ModelAndView excelExport() {
+		List<PostDto> postDtoList = this.postService.getAllPosts();
+		List<Post> posts = postDtoList.stream().map(post -> {
+			Post postModel = new Post(post);
+			return postModel;
+		}).collect(Collectors.toList());
+		return new ModelAndView("postExcelView", "posts", posts);
 	}
 }

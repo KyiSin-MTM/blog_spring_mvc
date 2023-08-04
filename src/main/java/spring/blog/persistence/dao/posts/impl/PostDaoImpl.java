@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -51,5 +52,14 @@ public class PostDaoImpl implements PostDao {
 	public void deletePostByIdDao(Post post) {
 		// TODO Auto-generated method stub
 		this.sessionFactory.getCurrentSession().delete(post);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Post> getSearchPostsDao(String searchKey) {
+		// TODO Auto-generated method stub
+		String stmt = "SELECT p FROM Post p WHERE p.title LIKE CONCAT('%', :searchKey, '%') OR p.description LIKE CONCAT('%', :searchKey, '%')";
+		Query<Post> query = this.sessionFactory.getCurrentSession().createQuery(stmt).setParameter("searchKey", searchKey);
+		return query.getResultList();
 	}
 }

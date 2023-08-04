@@ -30,11 +30,11 @@ public class DeploymentListener {
 	private void addRoles() {
 		List<String> roles = PropertyUtils.parseStringListProperty(appRoles);
 		for(String r:roles) {
-//            if(roleDao.getRoleByNameDao(r) == null) {
+            if(this.roleDao.dbGetRoleCount() != 2) {
                 Role role = new Role();
                 role.setName(r);
                 roleDao.saveRoleDao(role);
-            //}
+            }
         }
 	}
 }

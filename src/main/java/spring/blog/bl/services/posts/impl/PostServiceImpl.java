@@ -64,4 +64,19 @@ public class PostServiceImpl implements PostService {
 		this.postDao.deletePostByIdDao(post);
 	}
 
+	@Override
+	public List<PostDto> getSearchPosts(String searchKey) {
+		// TODO Auto-generated method stub
+		if(searchKey != "") {
+			List<Post> posts = this.postDao.getSearchPostsDao(searchKey);
+			List<PostDto> postDtoList = posts.stream().map(post -> {
+				PostDto postDto = new PostDto(post);
+				return postDto;
+			}).collect(Collectors.toList());
+			return postDtoList;
+		} else {
+			return this.getAllPosts();
+		}
+	}
+
 }

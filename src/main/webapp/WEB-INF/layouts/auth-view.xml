@@ -7,16 +7,10 @@
 		<put-attribute name="body"
 			value="/WEB-INF/pages/auth/register.jsp" />
 	</definition>
-	<!-- Post Create View -->
-	<definition name="postCreateView" extends="template">
-		<put-attribute name="title" value="Post Create" />
+	<!-- Login Form View -->
+	<definition name="loginFormView" extends="template">
+		<put-attribute name="title" value="Login" />
 		<put-attribute name="body"
-			value="/WEB-INF/pages/posts/create.jsp" />
-	</definition>
-	<!-- Post Edit View -->
-	<definition name="postEditView" extends="template">
-		<put-attribute name="title" value="Post Edit" />
-		<put-attribute name="body"
-			value="/WEB-INF/pages/posts/edit.jsp" />
+			value="/WEB-INF/pages/auth/login.jsp" />
 	</definition>
 </tiles-definitions>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-3.2.xsd
@@ -13,75 +13,89 @@
     http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
     http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
-	<!-- Context Annotation and Configuration -->
-	<context:annotation-config />
-	<context:component-scan
-		base-package="spring.blog" />
-	<context:property-placeholder
-		location="classpath:jdbc.properties, classpath:log4j.properties, classpath:application.properties" />
+    <!-- Context Annotation and Configuration -->
+    <context:annotation-config />
+    <context:component-scan
+        base-package="spring.blog" />
+    <context:property-placeholder
+        location="classpath:jdbc.properties, classpath:log4j.properties, classpath:application.properties" />
 
-	<!-- MVC, Resource, Property Configuration -->
-	<mvc:annotation-driven />
-	<mvc:resources mapping="/resources/**"
-		location="/resources/" />
+    <!-- MVC, Resource, Property Configuration -->
+    <mvc:annotation-driven />
+    <mvc:resources mapping="/resources/**"
+        location="/resources/" />
 
-	<!-- Tiles Configuration -->
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="order" value="0" />
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles3.TilesView" />
-	</bean>
+    <!-- Tiles Configuration -->
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="order" value="0" />
+        <property name="viewClass"
+            value="org.springframework.web.servlet.view.tiles3.TilesView" />
+    </bean>
 
-	<bean id="tilesConfigurer"
-		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-		<property name="definitions">
-			<list>
-				<value>/WEB-INF/layouts/layouts.xml</value>
-				<value>/WEB-INF/layouts/post-view.xml</value>				
-			</list>
-		</property>
-	</bean>
+    <bean id="tilesConfigurer"
+        class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/layouts/layouts.xml</value>
+                <value>/WEB-INF/layouts/post-view.xml</value>
+                <value>/WEB-INF/layouts/auth-view.xml</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="viewResolver1" class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="order" value="1"/>
+        <property name="location" value="/WEB-INF/spring-excel-views.xml"/>
+    </bean>
 
-	<!-- View Configuration -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="order" value="1" />
-		<property name="prefix" value="/WEB-INF/pages/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
+    <!-- View Configuration -->
+    <bean id="viewResolver2"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="order" value="2" />
+        <property name="prefix" value="/WEB-INF/pages/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
 
-	<!-- JDBC Configuration -->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="${jdbc.driverClassName}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-	</bean>
+    <!-- JDBC Configuration -->
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName"
+            value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
 
-	<!-- Hibernate Configuration -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect
-				</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-			</props>
-		</property>
-		<property name="packagesToScan"
-			value="spring.blog.persistence.entity" />
-	</bean>
+    <!-- Hibernate Configuration -->
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect
+                </prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+        <property name="packagesToScan"
+            value="spring.blog.persistence.entity" />
+    </bean>
 
-	<tx:annotation-driven
-		transaction-manager="transactionManager" />
+    <tx:annotation-driven
+        transaction-manager="transactionManager" />
 
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <!-- Password encoder configuration -->
+    <bean id="passwordEncoder"
+        class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+    <!-- Spring Security Configuration -->
+    <bean id="userService"
+        class="spring.blog.bl.services.users.impl.UserServiceImpl"></bean>
 </beans>

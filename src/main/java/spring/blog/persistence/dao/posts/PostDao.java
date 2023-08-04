@@ -16,4 +16,6 @@ public interface PostDao {
 
 	void deletePostByIdDao(Post post);
 
+	List<Post> getSearchPostsDao(String searchKey);
+
 }
