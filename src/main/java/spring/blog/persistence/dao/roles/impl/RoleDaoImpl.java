@@ -13,49 +13,113 @@ import org.springframework.stereotype.Repository;
 import spring.blog.persistence.dao.roles.RoleDao;
 import spring.blog.persistence.entity.Role;
 
+/**
+ * <h2>RoleDaoImpl Class</h2>
+ * <p>
+ * Process for Displaying RoleDaoImpl
+ * </p>
+ * 
+ * @author KyiSinShoonLaeLinn
+ *
+ */
 @Repository
 @Transactional
 public class RoleDaoImpl implements RoleDao {
-	
-	private static final String TABLE_NAME = "Role";
-	
-	private static final String SELECT_STMT = "FROM " + TABLE_NAME;
-	
-	@Autowired
-	private SessionFactory sessionFactory;
 
-	@Override
-	public void saveRoleDao(Role role) {
-		// TODO Auto-generated method stub
-		this.sessionFactory.getCurrentSession().save(role);
-	}
+    /**
+     * <h2>TABLE_NAME</h2>
+     * <p>
+     * TABLE_NAME
+     * </p>
+     */
+    private static final String TABLE_NAME = "Role";
 
-	@Override
-	public Role getRoleByNameDao(String roleName) {
-		// TODO Auto-generated method stub
-		Session currentSession = sessionFactory.getCurrentSession();
-		String stmt = "SELECT r FROM Role r WHERE r.name = :roleName";
-		return currentSession.createQuery(stmt, Role.class).setParameter("roleName", roleName).getSingleResult();
-	}
+    /**
+     * <h2>SELECT_STMT</h2>
+     * <p>
+     * SELECT_STMT
+     * </p>
+     */
+    private static final String SELECT_STMT = "FROM " + TABLE_NAME;
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Role> getRolesDao() {
-		// TODO Auto-generated method stub
-		StringBuilder stmt = new StringBuilder(SELECT_STMT);
-		return this.sessionFactory.getCurrentSession().createQuery(stmt.toString()).list();
-	}
+    /**
+     * <h2>sessionFactory</h2>
+     * <p>
+     * sessionFactory
+     * </p>
+     */
+    @Autowired
+    private SessionFactory sessionFactory;
 
-	@Override
-	public Long dbGetRoleCount() {
-		// TODO Auto-generated method stub
-		Query query = this.sessionFactory.getCurrentSession().createQuery("SELECT COUNT(r) FROM Role r");
-		return (Long)query.getSingleResult();
-	}
+    /**
+     * <h2>saveRoleDao</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @param role
+     */
+    @Override
+    public void saveRoleDao(Role role) {
+        this.sessionFactory.getCurrentSession().save(role);
+    }
 
-	@Override
-	public Role getRoleByIdDao(Long id) {
-		// TODO Auto-generated method stub
-		return this.sessionFactory.getCurrentSession().get(Role.class, id);
-	}
+    /**
+     * <h2>getRoleByNameDao</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @param roleName
+     * @return
+     */
+    @Override
+    public Role getRoleByNameDao(String roleName) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        String stmt = "SELECT r FROM Role r WHERE r.name = :roleName";
+        return currentSession.createQuery(stmt, Role.class).setParameter("roleName", roleName).getSingleResult();
+    }
+
+    /**
+     * <h2>getRolesDao</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Role> getRolesDao() {
+        StringBuilder stmt = new StringBuilder(SELECT_STMT);
+        return this.sessionFactory.getCurrentSession().createQuery(stmt.toString()).list();
+    }
+
+    /**
+     * <h2>dbGetRoleCount</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @return
+     */
+    @Override
+    public Long dbGetRoleCount() {
+        Query query = this.sessionFactory.getCurrentSession().createQuery("SELECT COUNT(r) FROM Role r");
+        return (Long) query.getSingleResult();
+    }
+
+    /**
+     * <h2>getRoleByIdDao</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @param id
+     * @return
+     */
+    @Override
+    public Role getRoleByIdDao(Long id) {
+        return this.sessionFactory.getCurrentSession().get(Role.class, id);
+    }
 }

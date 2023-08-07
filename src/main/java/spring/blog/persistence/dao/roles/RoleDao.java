@@ -5,14 +5,14 @@ import java.util.List;
 import spring.blog.persistence.entity.Role;
 
 public interface RoleDao {
-	
-	void saveRoleDao(Role role);
 
-	Role getRoleByNameDao(String roleName);
+    void saveRoleDao(Role role);
 
-	List<Role> getRolesDao();
+    Role getRoleByNameDao(String roleName);
 
-	Long dbGetRoleCount();
+    List<Role> getRolesDao();
 
-	Role getRoleByIdDao(Long id);
+    Long dbGetRoleCount();
+
+    Role getRoleByIdDao(Long id);
 }

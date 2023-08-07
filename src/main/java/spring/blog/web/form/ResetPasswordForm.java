@@ -6,12 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import spring.blog.persistence.entity.User;
 
 /**
- * <h2>LoginForm Class</h2>
+ * <h2>ResetPasswordForm Class</h2>
  * <p>
- * Process for Displaying LoginForm
+ * Process for Displaying ResetPasswordForm
  * </p>
  * 
  * @author KyiSinShoonLaeLinn
@@ -21,15 +20,14 @@ import spring.blog.persistence.entity.User;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginForm {
-    
+public class ResetPasswordForm {
+
     /**
      * <h2>email</h2>
      * <p>
      * email
      * </p>
      */
-    @NotBlank(message = "Email field is required.")
     private String email;
 
     /**
@@ -42,15 +40,11 @@ public class LoginForm {
     private String password;
 
     /**
-     * <h2>Constructor for LoginForm</h2>
+     * <h2>confirmPassword</h2>
      * <p>
-     * Constructor for LoginForm
+     * confirmPassword
      * </p>
-     * 
-     * @param user
      */
-    public LoginForm(User user) {
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-    }
+    @NotBlank(message = "Confirm Password field is required")
+    private String confirmPassword;
 }

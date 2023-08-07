@@ -18,7 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * <h2> ResetPassword Class</h2>
+ * <h2>ResetPassword Class</h2>
  * <p>
  * Process for Displaying ResetPassword
  * </p>
@@ -32,52 +32,52 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ResetPassword {
-	
-	/**
-	 * <h2> id</h2>
-	 * <p>
-	 * id
-	 * </p>
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	/**
-	 * <h2> token</h2>
-	 * <p>
-	 * token
-	 * </p>
-	 */
-	@Column(name = "token")
-	private String token;
-	
-	/**
-	 * <h2> user</h2>
-	 * <p>
-	 * user
-	 * </p>
-	 */
-	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id")
-	private User user;
-	
-	/**
-	 * <h2> expiryDate</h2>
-	 * <p>
-	 * expiryDate
-	 * </p>
-	 */
-	@Column(name = "expiry_at")
-	private LocalDateTime expiryDate;
-	
-	/**
-	 * <h2> Constructor for ResetPassword </h2>
-	 * <p>
-	 * Constructor for ResetPassword
-	 * </p>
-	 */
-	public ResetPassword() {
-		super();
-	}
+
+    /**
+     * <h2>id</h2>
+     * <p>
+     * id
+     * </p>
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    /**
+     * <h2>token</h2>
+     * <p>
+     * token
+     * </p>
+     */
+    @Column(name = "token")
+    private String token;
+
+    /**
+     * <h2>user</h2>
+     * <p>
+     * user
+     * </p>
+     */
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    /**
+     * <h2>expiryDate</h2>
+     * <p>
+     * expiryDate
+     * </p>
+     */
+    @Column(name = "expiry_at")
+    private LocalDateTime expiryDate;
+
+    /**
+     * <h2>Constructor for ResetPassword</h2>
+     * <p>
+     * Constructor for ResetPassword
+     * </p>
+     */
+    public ResetPassword() {
+        super();
+    }
 }

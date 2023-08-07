@@ -11,24 +11,42 @@ import spring.blog.bl.services.roles.RoleService;
 import spring.blog.persistence.dao.roles.RoleDao;
 import spring.blog.persistence.entity.Role;
 
+/**
+ * <h2>RoleServiceImpl Class</h2>
+ * <p>
+ * Process for Displaying RoleServiceImpl
+ * </p>
+ * 
+ * @author KyiSinShoonLaeLinn
+ *
+ */
 @Service
 public class RoleServiceImpl implements RoleService {
-	
-	@Autowired
-	private RoleDao roleDao;
-	
-	@Override
-	public List<RoleDto> getRoles() {
-		// TODO Auto-generated method stub
-		List<Role> roles = this.roleDao.getRolesDao();
-		for (Role role : roles) {
-		    System.out.println(role);
-		}
-		List<RoleDto> roleDtoList = roles.stream().map(role -> {
+
+    /**
+     * <h2>roleDao</h2>
+     * <p>
+     * roleDao
+     * </p>
+     */
+    @Autowired
+    private RoleDao roleDao;
+
+    /**
+     * <h2>getRoles</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @return
+     */
+    @Override
+    public List<RoleDto> getRoles() {
+        List<Role> roles = this.roleDao.getRolesDao();
+        List<RoleDto> roleDtoList = roles.stream().map(role -> {
             RoleDto roleDto = new RoleDto(role);
             return roleDto;
         }).collect(Collectors.toList());
-
-		return roleDtoList;
-	}	
+        return roleDtoList;
+    }
 }

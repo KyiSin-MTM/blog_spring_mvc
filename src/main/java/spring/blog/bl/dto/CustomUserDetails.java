@@ -12,68 +12,143 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import spring.blog.persistence.entity.Role;
 
+/**
+ * <h2>CustomUserDetails Class</h2>
+ * <p>
+ * Process for Displaying CustomUserDetails
+ * </p>
+ * 
+ * @author KyiSinShoonLaeLinn
+ *
+ */
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomUserDetails implements UserDetails{
-	
-	/**
-	 * <h2> serialVersionUID</h2>
-	 * <p>
-	 * serialVersionUID
-	 * </p>
-	 */
-	private static final long serialVersionUID = -9187614337461475130L;
+public class CustomUserDetails implements UserDetails {
 
-	private String username;
-	
-	private String password;
-	
-	private List<Role> roles;
+    /**
+     * <h2>serialVersionUID</h2>
+     * <p>
+     * serialVersionUID
+     * </p>
+     */
+    private static final long serialVersionUID = -7027756515208371329L;
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		for(Role role: this.roles) {
-			authorities.add(new SimpleGrantedAuthority(role.getName()));
-		}
-		return authorities;
-	}
+    /**
+     * <h2>username</h2>
+     * <p>
+     * username
+     * </p>
+     */
+    private String username;
 
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return this.password;
-	}
+    /**
+     * <h2>password</h2>
+     * <p>
+     * password
+     * </p>
+     */
+    private String password;
 
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return this.username;
-	}
+    /**
+     * <h2>roles</h2>
+     * <p>
+     * roles
+     * </p>
+     */
+    private List<Role> roles;
 
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    /**
+     * <h2>getAuthorities</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @return
+     */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        for (Role role : this.roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    /**
+     * <h2>getPassword</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @return
+     */
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    /**
+     * <h2>getUsername</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @return
+     */
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    /**
+     * <h2>isAccountNonExpired</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @return
+     */
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
+    /**
+     * <h2>isAccountNonLocked</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @return
+     */
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    /**
+     * <h2>isCredentialsNonExpired</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @return
+     */
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    /**
+     * <h2>isEnabled</h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @return
+     */
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

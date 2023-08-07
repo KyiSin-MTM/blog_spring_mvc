@@ -5,17 +5,17 @@ import java.util.List;
 import spring.blog.persistence.entity.Post;
 
 public interface PostDao {
-	
-	void savePostDao(Post post);
 
-	List<Post> getAllPostsDao();
+    void savePostDao(Post post);
 
-	Post getPostByIdDao(Long id);
+    List<Post> getAllPostsDao();
 
-	void updatePostDao(Post post);
+    Post getPostByIdDao(Long id);
 
-	void deletePostByIdDao(Post post);
+    void updatePostDao(Post post);
 
-	List<Post> getSearchPostsDao(String searchKey);
+    void deletePostByIdDao(Post post);
+
+    List<Post> getSearchPostsDao(String searchKey);
 
 }

@@ -22,12 +22,12 @@
 	<div class="col-4 form-width mx-auto">
 		<div class="card">
 			<div class="card-header">
-				<h4>Email Confirmation Form</h4>
+				<h4>Reset Password Form</h4>
 			</div>
 			<div class="card-body">
-				<c:url var="emailConfirmAction" value="/email/check"></c:url>
-				<form:form action="${emailConfirmAction}" method="POST"
-					modelAttribute="forgotPasswordForm">
+				<c:url var="resetPasswordAction" value="/update/password"></c:url>
+				<form:form action="${resetPasswordAction}" method="POST"
+					modelAttribute="resetPasswordForm">
                     <c:if test="${errorMessage != null }">
                         <div class="alert text-danger text-center">
                             <strong>${errorMessage}</strong>
@@ -41,15 +41,31 @@
                     <div class="row">
 						<div class="col-12 mb-2">
 							<div class="form-group">
-								<label>Enter your email: </label>
-								<form:input type="text" path="email" class="form-control"
-									placeholder="Enter Email" />
-								<form:errors path="email" cssClass="text-danger" />
+								<label>Email: </label>
+								<form:input type="text" path="email" class="form-control" 
+                                    readonly="true" value="${resetPassword.user.email}" />
 							</div>
 						</div>
+                        <div class="col-12 mb-2">
+                            <div class="form-group">
+                                <label>Password: </label>
+                                <form:input type="password" path="password" class="form-control"
+                                    placeholder="Enter Password" />
+                                <form:errors path="password" cssClass="text-danger" />
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="form-group">
+                                <label>Confirm Password: </label>
+                                <form:input type="password" path="confirmPassword" class="form-control"
+                                    placeholder="Enter Password" />
+                                <form:errors path="confirmPassword" cssClass="text-danger" />
+                            </div>
+                        </div>
 						<div class="col-12 mt-2">
 							<button type="submit" class="btn btn-primary me-2">Submit</button>
-						</div>
+                            <span><a href="<c:url value="/login" />"> Go to Login? </a></span>
+						</div>             
 					</div>
 				</form:form>
 			</div>

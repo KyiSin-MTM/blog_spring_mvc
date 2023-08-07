@@ -13,6 +13,11 @@ import spring.blog.persistence.entity.Role;
 import spring.blog.persistence.entity.User;
 
 /**
+ * <h2>RegisterForm Class</h2>
+ * <p>
+ * Process for Displaying RegisterForm
+ * </p>
+ * 
  * @author KyiSinShoonLaeLinn
  *
  */
@@ -22,41 +27,80 @@ import spring.blog.persistence.entity.User;
 @AllArgsConstructor
 public class RegisterForm {
 
-	private Long id;
+    /**
+     * <h2>id</h2>
+     * <p>
+     * id
+     * </p>
+     */
+    private Long id;
 
-	@NotBlank(message = "Name field is required")
-	private String name;
+    /**
+     * <h2>name</h2>
+     * <p>
+     * name
+     * </p>
+     */
+    @NotBlank(message = "Name field is required")
+    private String name;
 
-	@NotBlank(message = "Email field is required")
-	@Email(message = "Email format is invalid")
-	private String email;
+    /**
+     * <h2>email</h2>
+     * <p>
+     * email
+     * </p>
+     */
+    @NotBlank(message = "Email field is required")
+    @Email(message = "Email format is invalid")
+    private String email;
 
-//	@Min(value = 1, message = "Role field is required")
-//	private Long roleId;
+    /**
+     * <h2>roles</h2>
+     * <p>
+     * roles
+     * </p>
+     */
+    private List<Role> roles;
 
-	private List<Role> roles;
+    /**
+     * <h2>role</h2>
+     * <p>
+     * role
+     * </p>
+     */
+    private Role role;
 
-	private Role role;
+    /**
+     * <h2>password</h2>
+     * <p>
+     * password
+     * </p>
+     */
+    @NotBlank(message = "Password field is required")
+    private String password;
 
-	@NotBlank(message = "Password field is required")
-	private String password;
+    /**
+     * <h2>confirmPassword</h2>
+     * <p>
+     * confirmPassword
+     * </p>
+     */
+    @NotBlank(message = "Confirm password field is required")
+    private String confirmPassword;
 
-	@NotBlank(message = "Confirm password field is required")
-	private String confirmPassword;
-
-	/*
-	 * public RegisterForm(UserDto userDTO) { this.id = userDTO.getId(); this.name =
-	 * userDTO.getName(); this.email = userDTO.getEmail(); this.password =
-	 * userDTO.getPassword(); this.roles = userDTO.getRoles().stream().map(role ->
-	 * role.getAuthority()).collect(Collectors.toList()); }
-	 */
-
-	public RegisterForm(User user) {
-		this.id = user.getId();
-		this.name = user.getName();
-		this.email = user.getName();
-		this.roles = user.getRoles();
-		this.password = user.getPassword();
-	}
-
+    /**
+     * <h2>Constructor for RegisterForm</h2>
+     * <p>
+     * Constructor for RegisterForm
+     * </p>
+     * 
+     * @param user
+     */
+    public RegisterForm(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getName();
+        this.roles = user.getRoles();
+        this.password = user.getPassword();
+    }
 }
