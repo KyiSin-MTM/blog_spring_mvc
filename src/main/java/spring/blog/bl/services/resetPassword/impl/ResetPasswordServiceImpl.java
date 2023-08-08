@@ -94,11 +94,11 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
         int port = request.getServerPort();
         String resetPasswordUrl = "http://" + serverName + ":" + port + "/Blog/reset_password?token=" + token;
         String subject = "Password Reset";
-        String body = "Dear " + user.getName() + "," + System.lineSeparator()
-                + "To reset your password, please click the link below." + System.lineSeparator() + resetPasswordUrl
-                + "\n\n With best regards,\nAdmin Team";
+        StringBuilder body = new StringBuilder(
+                "Dear " + user.getName() + ",\n\nTo reset your password, please click the link below.\n\n"
+                        + resetPasswordUrl + "\n\n With best regards,\nAdmin Team");
         try {
-            this.emailUtils.sendMail(user.getEmail(), subject, body);
+            this.emailUtils.sendMail(user.getEmail(), subject, body.toString());
             ResetPassword resetPassword = new ResetPassword();
             resetPassword.setToken(token);
             resetPassword.setUser(user);
