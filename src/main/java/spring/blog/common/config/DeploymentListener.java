@@ -45,7 +45,7 @@ public class DeploymentListener {
     /**
      * <h2>dataFactory</h2>
      * <p>
-     * 
+     * data factory
      * </p>
      *
      * @return void
@@ -59,7 +59,7 @@ public class DeploymentListener {
     /**
      * <h2>addRoles</h2>
      * <p>
-     * 
+     * add role in database
      * </p>
      *
      * @return void

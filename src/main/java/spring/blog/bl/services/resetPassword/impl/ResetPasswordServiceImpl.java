@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -79,7 +80,7 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
     /**
      * <h2>sendResetMail</h2>
      * <p>
-     * 
+     * send mail
      * </p>
      * 
      * @param forgotPasswordForm
@@ -107,7 +108,7 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
             } else {
                 this.resetPasswordDao.save(resetPassword);
             }
-        } catch (Exception e) {
+        } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
@@ -115,7 +116,7 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
     /**
      * <h2>calculateExpiryDateTime</h2>
      * <p>
-     * 
+     * get expire date time
      * </p>
      *
      * @return
@@ -130,7 +131,7 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
     /**
      * <h2>findBytoken</h2>
      * <p>
-     * 
+     * get reset password by token
      * </p>
      * 
      * @param token
@@ -144,7 +145,7 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
     /**
      * <h2>isEqualPwdWithConfirmPwd</h2>
      * <p>
-     * 
+     * check the two passwords
      * </p>
      * 
      * @param resetPasswordForm
@@ -161,7 +162,7 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
     /**
      * <h2>updatePassword</h2>
      * <p>
-     * 
+     * update password
      * </p>
      * 
      * @param resetPasswordForm

@@ -7,15 +7,15 @@ import spring.blog.web.form.PostForm;
 
 public interface PostService {
 
-    void savePost(PostForm postForm);
+    public void savePost(PostForm postForm);
 
-    List<PostDto> getAllPosts();
+    public List<PostDto> getAllPosts();
 
-    PostDto getPostById(Long id);
+    public PostDto getPostById(Long id);
 
-    void updatePost(PostForm postForm);
+    public void updatePost(PostForm postForm);
 
-    void deletePostById(Long id);
+    public void deletePostById(Long id);
 
-    List<PostDto> getSearchPosts(String searchKey);
+    public List<PostDto> getSearchPosts(String searchKey);
 }

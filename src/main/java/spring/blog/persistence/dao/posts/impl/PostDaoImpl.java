@@ -53,7 +53,7 @@ public class PostDaoImpl implements PostDao {
     /**
      * <h2>savePostDao</h2>
      * <p>
-     * 
+     * save post
      * </p>
      * 
      * @param post
@@ -66,7 +66,7 @@ public class PostDaoImpl implements PostDao {
     /**
      * <h2>getAllPostsDao</h2>
      * <p>
-     * 
+     * post list
      * </p>
      * 
      * @return
@@ -81,7 +81,7 @@ public class PostDaoImpl implements PostDao {
     /**
      * <h2>getPostByIdDao</h2>
      * <p>
-     * 
+     * get post by id
      * </p>
      * 
      * @param id
@@ -95,7 +95,7 @@ public class PostDaoImpl implements PostDao {
     /**
      * <h2>updatePostDao</h2>
      * <p>
-     * 
+     * update post
      * </p>
      * 
      * @param post
@@ -109,7 +109,7 @@ public class PostDaoImpl implements PostDao {
     /**
      * <h2>deletePostByIdDao</h2>
      * <p>
-     * 
+     * delete post
      * </p>
      * 
      * @param post
@@ -122,7 +122,7 @@ public class PostDaoImpl implements PostDao {
     /**
      * <h2>getSearchPostsDao</h2>
      * <p>
-     * 
+     * search post
      * </p>
      * 
      * @param searchKey

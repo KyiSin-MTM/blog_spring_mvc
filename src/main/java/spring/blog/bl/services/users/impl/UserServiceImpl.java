@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -15,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import spring.blog.bl.dto.CustomUserDetails;
@@ -25,7 +23,6 @@ import spring.blog.persistence.dao.roles.RoleDao;
 import spring.blog.persistence.dao.users.UserDao;
 import spring.blog.persistence.entity.Role;
 import spring.blog.persistence.entity.User;
-import spring.blog.web.form.LoginForm;
 import spring.blog.web.form.RegisterForm;
 
 /**
@@ -59,18 +56,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private RoleDao roleDao;
 
     /**
-     * <h2>passwordEncoder</h2>
-     * <p>
-     * passwordEncoder
-     * </p>
-     */
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
-    /**
      * <h2>saveUser</h2>
      * <p>
-     * 
+     * save user
      * </p>
      * 
      * @param registerForm
@@ -92,7 +80,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     /**
      * <h2>isEqualPwdWithConfirmPwd</h2>
      * <p>
-     * 
+     * check two passwords
      * </p>
      * 
      * @param registerForm
@@ -109,7 +97,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     /**
      * <h2>loadUserByUsername</h2>
      * <p>
-     * 
+     * check authentication
      * </p>
      * 
      * @param username
@@ -127,33 +115,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     /**
-     * <h2>checkedLogin</h2>
-     * <p>
-     * 
-     * </p>
-     * 
-     * @param loginForm
-     * @param session
-     * @return
-     */
-    @Override
-    public boolean checkedLogin(@Valid LoginForm loginForm, HttpSession session) {
-        String email = loginForm.getEmail();
-        User user = this.userDao.dbFindByEmail(email);
-        if (user != null) {
-            String dbPassword = user.getPassword();
-            if (passwordEncoder.matches(loginForm.getPassword(), dbPassword)) {
-                session.setAttribute("loginedUser", user);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * <h2>doIsLoggedIn</h2>
      * <p>
-     * 
+     * check logged in or not
      * </p>
      * 
      * @return
@@ -168,7 +132,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     /**
      * <h2>checkedEmail</h2>
      * <p>
-     * 
+     * check email exists or not
      * </p>
      * 
      * @param email
@@ -183,7 +147,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     /**
      * <h2>getAllUsers</h2>
      * <p>
-     * 
+     * users list
      * </p>
      * 
      * @return
@@ -191,10 +155,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<UserDto> getAllUsers() {
         List<User> users = this.userDao.dbGetAllUsers();
-        List<UserDto> userDtoList = users.stream().map(user -> {
-            UserDto userDto = new UserDto(user);
-            return userDto;
-        }).collect(Collectors.toList());
+        List<UserDto> userDtoList = users.stream().map(user -> new UserDto(user)).collect(Collectors.toList());
         return userDtoList;
     }
 }

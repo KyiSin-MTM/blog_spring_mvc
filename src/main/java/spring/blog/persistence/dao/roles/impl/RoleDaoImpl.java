@@ -54,7 +54,7 @@ public class RoleDaoImpl implements RoleDao {
     /**
      * <h2>saveRoleDao</h2>
      * <p>
-     * 
+     * save role
      * </p>
      * 
      * @param role
@@ -67,7 +67,7 @@ public class RoleDaoImpl implements RoleDao {
     /**
      * <h2>getRoleByNameDao</h2>
      * <p>
-     * 
+     * get role by role name
      * </p>
      * 
      * @param roleName
@@ -83,7 +83,7 @@ public class RoleDaoImpl implements RoleDao {
     /**
      * <h2>getRolesDao</h2>
      * <p>
-     * 
+     * role list
      * </p>
      * 
      * @return
@@ -98,7 +98,7 @@ public class RoleDaoImpl implements RoleDao {
     /**
      * <h2>dbGetRoleCount</h2>
      * <p>
-     * 
+     * role count
      * </p>
      * 
      * @return
@@ -112,7 +112,7 @@ public class RoleDaoImpl implements RoleDao {
     /**
      * <h2>getRoleByIdDao</h2>
      * <p>
-     * 
+     * get role by id
      * </p>
      * 
      * @param id

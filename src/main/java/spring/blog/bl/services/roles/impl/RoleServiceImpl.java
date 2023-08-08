@@ -35,7 +35,7 @@ public class RoleServiceImpl implements RoleService {
     /**
      * <h2>getRoles</h2>
      * <p>
-     * 
+     * role list
      * </p>
      * 
      * @return
@@ -43,10 +43,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleDto> getRoles() {
         List<Role> roles = this.roleDao.getRolesDao();
-        List<RoleDto> roleDtoList = roles.stream().map(role -> {
-            RoleDto roleDto = new RoleDto(role);
-            return roleDto;
-        }).collect(Collectors.toList());
+        List<RoleDto> roleDtoList = roles.stream().map(role -> new RoleDto(role)).collect(Collectors.toList());
         return roleDtoList;
     }
 }

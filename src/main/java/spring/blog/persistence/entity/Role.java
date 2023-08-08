@@ -1,6 +1,5 @@
 package spring.blog.persistence.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +8,7 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import spring.blog.bl.dto.RoleDto;
 
@@ -25,6 +25,7 @@ import spring.blog.bl.dto.RoleDto;
 @Table(name = "roles")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class Role {
 
@@ -44,18 +45,7 @@ public class Role {
      * name
      * </p>
      */
-    @Column(name = "name")
     private String name;
-
-    /**
-     * <h2>Constructor for Role</h2>
-     * <p>
-     * Constructor for Role
-     * </p>
-     */
-    public Role() {
-        super();
-    }
 
     /**
      * <h2>Constructor for Role</h2>

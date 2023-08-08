@@ -1,6 +1,6 @@
 package spring.blog.bl.dto;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -69,7 +69,7 @@ public class UserDto {
      * created_at
      * </p>
      */
-    private Timestamp created_at;
+    private Date created_at;
 
     /**
      * <h2>Constructor for UserDto</h2>

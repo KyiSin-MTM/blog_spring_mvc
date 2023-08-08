@@ -1,6 +1,6 @@
 package spring.blog.bl.dto;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,7 +53,7 @@ public class PostDto {
      * created_at
      * </p>
      */
-    private Timestamp created_at;
+    private Date created_at;
 
     /**
      * <h2>Constructor for PostDto</h2>

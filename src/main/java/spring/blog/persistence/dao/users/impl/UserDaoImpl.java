@@ -52,7 +52,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * <h2>saveUserDao</h2>
      * <p>
-     * 
+     * save user
      * </p>
      * 
      * @param user
@@ -65,7 +65,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * <h2>dbGetCountByEmail</h2>
      * <p>
-     * 
+     * Get count by email
      * </p>
      * 
      * @param email
@@ -81,7 +81,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * <h2>dbGetPasswordByEmail</h2>
      * <p>
-     * 
+     * Get password by email
      * </p>
      * 
      * @param email
@@ -98,7 +98,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * <h2>dbFindByEmail</h2>
      * <p>
-     * 
+     * find user by email
      * </p>
      * 
      * @param email
@@ -114,7 +114,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * <h2>dbGetAllUsers</h2>
      * <p>
-     * 
+     * get user list
      * </p>
      * 
      * @return
@@ -129,7 +129,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * <h2>dbUpdate</h2>
      * <p>
-     * 
+     * user update
      * </p>
      * 
      * @param user

@@ -7,7 +7,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -58,12 +59,13 @@ public class AuthController {
      * </p>
      */
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    @Qualifier("passwordEncoder")
+    private PasswordEncoder passwordEncoder;
 
     /**
      * <h2>register</h2>
      * <p>
-     * 
+     * register user
      * </p>
      *
      * @return
@@ -81,7 +83,7 @@ public class AuthController {
     /**
      * <h2>store</h2>
      * <p>
-     * 
+     * store user
      * </p>
      *
      * @param registerForm
@@ -115,7 +117,7 @@ public class AuthController {
     /**
      * <h2>login</h2>
      * <p>
-     * 
+     * login
      * </p>
      *
      * @param request
@@ -127,6 +129,7 @@ public class AuthController {
         ModelAndView mv = new ModelAndView("loginFormView");
         if (this.userService.doIsLoggedIn()) {
             mv.setViewName("redirect:/posts");
+            return mv;
         }
         mv.addObject("loginForm", new LoginForm());
         return mv;
@@ -135,7 +138,7 @@ public class AuthController {
     /**
      * <h2>logout</h2>
      * <p>
-     * 
+     * logout
      * </p>
      *
      * @param session

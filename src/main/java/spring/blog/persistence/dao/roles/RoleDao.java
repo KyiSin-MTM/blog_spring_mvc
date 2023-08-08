@@ -6,13 +6,13 @@ import spring.blog.persistence.entity.Role;
 
 public interface RoleDao {
 
-    void saveRoleDao(Role role);
+    public void saveRoleDao(Role role);
 
-    Role getRoleByNameDao(String roleName);
+    public Role getRoleByNameDao(String roleName);
 
-    List<Role> getRolesDao();
+    public List<Role> getRolesDao();
 
-    Long dbGetRoleCount();
+    public Long dbGetRoleCount();
 
-    Role getRoleByIdDao(Long id);
+    public Role getRoleByIdDao(Long id);
 }

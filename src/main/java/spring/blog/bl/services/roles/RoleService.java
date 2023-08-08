@@ -6,5 +6,5 @@ import spring.blog.bl.dto.RoleDto;
 
 public interface RoleService {
 
-    List<RoleDto> getRoles();
+    public List<RoleDto> getRoles();
 }

@@ -60,7 +60,7 @@ public class CustomUserDetails implements UserDetails {
     /**
      * <h2>getAuthorities</h2>
      * <p>
-     * 
+     * get authorities
      * </p>
      * 
      * @return
@@ -77,7 +77,7 @@ public class CustomUserDetails implements UserDetails {
     /**
      * <h2>getPassword</h2>
      * <p>
-     * 
+     * get password
      * </p>
      * 
      * @return
@@ -90,7 +90,7 @@ public class CustomUserDetails implements UserDetails {
     /**
      * <h2>getUsername</h2>
      * <p>
-     * 
+     * get user name
      * </p>
      * 
      * @return
@@ -103,7 +103,7 @@ public class CustomUserDetails implements UserDetails {
     /**
      * <h2>isAccountNonExpired</h2>
      * <p>
-     * 
+     * is account not expired
      * </p>
      * 
      * @return
@@ -116,7 +116,7 @@ public class CustomUserDetails implements UserDetails {
     /**
      * <h2>isAccountNonLocked</h2>
      * <p>
-     * 
+     * is account not locked
      * </p>
      * 
      * @return
@@ -129,7 +129,7 @@ public class CustomUserDetails implements UserDetails {
     /**
      * <h2>isCredentialsNonExpired</h2>
      * <p>
-     * 
+     * is credential is not expired
      * </p>
      * 
      * @return
@@ -142,7 +142,7 @@ public class CustomUserDetails implements UserDetails {
     /**
      * <h2>isEnabled</h2>
      * <p>
-     * 
+     * is enable
      * </p>
      * 
      * @return

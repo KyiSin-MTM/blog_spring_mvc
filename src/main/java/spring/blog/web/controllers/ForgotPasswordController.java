@@ -48,7 +48,7 @@ public class ForgotPasswordController {
     /**
      * <h2>forgotPassword</h2>
      * <p>
-     * 
+     * forgot password form
      * </p>
      *
      * @return
@@ -65,7 +65,7 @@ public class ForgotPasswordController {
     /**
      * <h2>emailCheck</h2>
      * <p>
-     * 
+     * checking
      * </p>
      *
      * @param forgotPasswordForm

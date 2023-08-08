@@ -6,16 +6,15 @@ import spring.blog.persistence.entity.Post;
 
 public interface PostDao {
 
-    void savePostDao(Post post);
+    public void savePostDao(Post post);
 
-    List<Post> getAllPostsDao();
+    public List<Post> getAllPostsDao();
 
-    Post getPostByIdDao(Long id);
+    public Post getPostByIdDao(Long id);
 
-    void updatePostDao(Post post);
+    public void updatePostDao(Post post);
 
-    void deletePostByIdDao(Post post);
+    public void deletePostByIdDao(Post post);
 
-    List<Post> getSearchPostsDao(String searchKey);
-
+    public List<Post> getSearchPostsDao(String searchKey);
 }

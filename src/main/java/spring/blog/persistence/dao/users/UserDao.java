@@ -6,15 +6,15 @@ import spring.blog.persistence.entity.User;
 
 public interface UserDao {
 
-    void saveUserDao(User user);
+    public void saveUserDao(User user);
 
-    Long dbGetCountByEmail(String email);
+    public Long dbGetCountByEmail(String email);
 
-    String dbGetPasswordByEmail(String email);
+    public String dbGetPasswordByEmail(String email);
 
-    User dbFindByEmail(String username);
+    public User dbFindByEmail(String username);
 
-    List<User> dbGetAllUsers();
+    public List<User> dbGetAllUsers();
 
-    void dbUpdate(User user);
+    public void dbUpdate(User user);
 }

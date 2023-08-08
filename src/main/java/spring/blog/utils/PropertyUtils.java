@@ -17,7 +17,7 @@ public class PropertyUtils {
     /**
      * <h2>parseStringListProperty</h2>
      * <p>
-     * 
+     * parse string
      * </p>
      *
      * @param properties

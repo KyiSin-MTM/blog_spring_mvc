@@ -34,7 +34,7 @@ public class UserController {
     /**
      * <h2>index</h2>
      * <p>
-     * 
+     * user list
      * </p>
      *
      * @return

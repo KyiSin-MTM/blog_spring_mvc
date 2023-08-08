@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -30,6 +31,7 @@ import lombok.Setter;
 @Table(name = "reset_passwords")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class ResetPassword {
 
@@ -49,7 +51,6 @@ public class ResetPassword {
      * token
      * </p>
      */
-    @Column(name = "token")
     private String token;
 
     /**
@@ -70,14 +71,4 @@ public class ResetPassword {
      */
     @Column(name = "expiry_at")
     private LocalDateTime expiryDate;
-
-    /**
-     * <h2>Constructor for ResetPassword</h2>
-     * <p>
-     * Constructor for ResetPassword
-     * </p>
-     */
-    public ResetPassword() {
-        super();
-    }
 }

@@ -39,7 +39,7 @@ public class ResetPasswordController {
     /**
      * <h2>resetPage</h2>
      * <p>
-     * 
+     * reset password form
      * </p>
      *
      * @param token
@@ -63,7 +63,7 @@ public class ResetPasswordController {
     /**
      * <h2>updatePassword</h2>
      * <p>
-     * 
+     * update password
      * </p>
      *
      * @param resetPasswordForm

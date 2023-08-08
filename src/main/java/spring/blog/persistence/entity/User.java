@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,6 +21,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import spring.blog.bl.dto.UserDto;
 import spring.blog.web.form.RegisterForm;
@@ -39,6 +39,7 @@ import spring.blog.web.form.RegisterForm;
 @Table(name = "users")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class User {
     /**
@@ -57,7 +58,6 @@ public class User {
      * name
      * </p>
      */
-    @Column(name = "name")
     private String name;
 
     /**
@@ -66,7 +66,6 @@ public class User {
      * email
      * </p>
      */
-    @Column(name = "email")
     private String email;
 
     /**
@@ -88,7 +87,6 @@ public class User {
      * password
      * </p>
      */
-    @Column(name = "password")
     private String password;
 
     /**
@@ -108,16 +106,6 @@ public class User {
      */
     @UpdateTimestamp
     private Timestamp updated_at;
-
-    /**
-     * <h2>Constructor for User</h2>
-     * <p>
-     * Constructor for User
-     * </p>
-     */
-    public User() {
-        super();
-    }
 
     /**
      * <h2>Constructor for User</h2>

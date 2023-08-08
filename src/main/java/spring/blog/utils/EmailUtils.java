@@ -42,7 +42,7 @@ public class EmailUtils {
     /**
      * <h2>sendMail</h2>
      * <p>
-     * 
+     * send mail
      * </p>
      *
      * @param email

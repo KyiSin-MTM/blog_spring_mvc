@@ -36,7 +36,7 @@ public class PostServiceImpl implements PostService {
     /**
      * <h2>savePost</h2>
      * <p>
-     * 
+     * save post
      * </p>
      * 
      * @param postForm
@@ -52,7 +52,7 @@ public class PostServiceImpl implements PostService {
     /**
      * <h2>getAllPosts</h2>
      * <p>
-     * 
+     * post list
      * </p>
      * 
      * @return
@@ -60,17 +60,14 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostDto> getAllPosts() {
         List<Post> posts = this.postDao.getAllPostsDao();
-        List<PostDto> postDtoList = posts.stream().map(post -> {
-            PostDto postDTO = new PostDto(post);
-            return postDTO;
-        }).collect(Collectors.toList());
+        List<PostDto> postDtoList = posts.stream().map(post -> new PostDto(post)).collect(Collectors.toList());
         return postDtoList;
     }
 
     /**
      * <h2>getPostById</h2>
      * <p>
-     * 
+     * get post by id
      * </p>
      * 
      * @param id
@@ -86,7 +83,7 @@ public class PostServiceImpl implements PostService {
     /**
      * <h2>updatePost</h2>
      * <p>
-     * 
+     * update post
      * </p>
      * 
      * @param postForm
@@ -102,7 +99,7 @@ public class PostServiceImpl implements PostService {
     /**
      * <h2>deletePostById</h2>
      * <p>
-     * 
+     * delete post
      * </p>
      * 
      * @param id
@@ -116,7 +113,7 @@ public class PostServiceImpl implements PostService {
     /**
      * <h2>getSearchPosts</h2>
      * <p>
-     * 
+     * search posts
      * </p>
      * 
      * @param searchKey
@@ -126,10 +123,7 @@ public class PostServiceImpl implements PostService {
     public List<PostDto> getSearchPosts(String searchKey) {
         if (searchKey != "") {
             List<Post> posts = this.postDao.getSearchPostsDao(searchKey);
-            List<PostDto> postDtoList = posts.stream().map(post -> {
-                PostDto postDto = new PostDto(post);
-                return postDto;
-            }).collect(Collectors.toList());
+            List<PostDto> postDtoList = posts.stream().map(post -> new PostDto(post)).collect(Collectors.toList());
             return postDtoList;
         } else {
             return this.getAllPosts();

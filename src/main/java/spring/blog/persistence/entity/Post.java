@@ -2,7 +2,6 @@ package spring.blog.persistence.entity;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import spring.blog.bl.dto.PostDto;
 import spring.blog.web.form.PostForm;
@@ -31,6 +31,7 @@ import spring.blog.web.form.PostForm;
 @Table(name = "posts")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class Post {
 
@@ -50,7 +51,6 @@ public class Post {
      * title
      * </p>
      */
-    @Column(name = "title")
     private String title;
 
     /**
@@ -59,7 +59,6 @@ public class Post {
      * description
      * </p>
      */
-    @Column(name = "description")
     private String description;
 
     /**
@@ -79,16 +78,6 @@ public class Post {
      */
     @UpdateTimestamp
     private Timestamp updated_at;
-
-    /**
-     * <h2>Constructor for Post</h2>
-     * <p>
-     * Constructor for Post
-     * </p>
-     */
-    public Post() {
-        super();
-    }
 
     /**
      * <h2>Constructor for Post</h2>
@@ -115,6 +104,6 @@ public class Post {
         this.id = postDTO.getId();
         this.title = postDTO.getTitle();
         this.description = postDTO.getDescription();
-        this.created_at = postDTO.getCreated_at();
+        this.created_at = (Timestamp) postDTO.getCreated_at();
     }
 }

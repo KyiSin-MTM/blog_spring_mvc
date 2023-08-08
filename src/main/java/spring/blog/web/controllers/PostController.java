@@ -45,7 +45,7 @@ public class PostController {
     /**
      * <h2>create</h2>
      * <p>
-     * 
+     * post create
      * </p>
      *
      * @return
@@ -61,7 +61,7 @@ public class PostController {
     /**
      * <h2>store</h2>
      * <p>
-     * 
+     * post store
      * </p>
      *
      * @param postForm
@@ -84,7 +84,7 @@ public class PostController {
     /**
      * <h2>index</h2>
      * <p>
-     * 
+     * post list
      * </p>
      *
      * @param session
@@ -104,7 +104,7 @@ public class PostController {
     /**
      * <h2>edit</h2>
      * <p>
-     * 
+     * post edit form
      * </p>
      *
      * @param id
@@ -122,7 +122,7 @@ public class PostController {
     /**
      * <h2>update</h2>
      * <p>
-     * 
+     * post update
      * </p>
      *
      * @param postForm
@@ -145,7 +145,7 @@ public class PostController {
     /**
      * <h2>destroy</h2>
      * <p>
-     * 
+     * post delete
      * </p>
      *
      * @param id
@@ -161,7 +161,7 @@ public class PostController {
     /**
      * <h2>search</h2>
      * <p>
-     * 
+     * post search
      * </p>
      *
      * @param searchKey
@@ -180,7 +180,7 @@ public class PostController {
     /**
      * <h2>excelExport</h2>
      * <p>
-     * 
+     * post list excel export
      * </p>
      *
      * @return

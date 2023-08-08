@@ -39,7 +39,7 @@ public class MainController {
     /**
      * <h2>home</h2>
      * <p>
-     * 
+     * home page
      * </p>
      *
      * @param session

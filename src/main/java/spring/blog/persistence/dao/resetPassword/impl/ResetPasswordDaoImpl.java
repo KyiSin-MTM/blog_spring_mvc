@@ -34,7 +34,7 @@ public class ResetPasswordDaoImpl implements ResetPasswordDao {
     /**
      * <h2>save</h2>
      * <p>
-     * 
+     * reset password save
      * </p>
      * 
      * @param resetPassword
@@ -47,7 +47,7 @@ public class ResetPasswordDaoImpl implements ResetPasswordDao {
     /**
      * <h2>update</h2>
      * <p>
-     * 
+     * reset password update
      * </p>
      * 
      * @param resetPassword
@@ -60,7 +60,7 @@ public class ResetPasswordDaoImpl implements ResetPasswordDao {
     /**
      * <h2>findByTokenDao</h2>
      * <p>
-     * 
+     * get reset password by token
      * </p>
      * 
      * @param token
