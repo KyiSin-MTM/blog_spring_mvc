@@ -3,7 +3,6 @@ package spring.blog.web.controllers;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ import spring.blog.bl.dto.RoleDto;
 import spring.blog.bl.services.roles.RoleService;
 import spring.blog.bl.services.users.UserService;
 import spring.blog.web.form.LoginForm;
-import spring.blog.web.form.RegisterForm;
+import spring.blog.web.form.UserForm;
 
 /**
  * <h2>AuthController Class</h2>
@@ -76,7 +75,7 @@ public class AuthController {
         List<RoleDto> roles = this.roleService.getRoles();
         ModelAndView mv = new ModelAndView("registerFormView");
         mv.addObject("roles", roles);
-        mv.addObject("registerForm", new RegisterForm());
+        mv.addObject("registerForm", new UserForm());
         return mv;
     }
 
@@ -92,7 +91,7 @@ public class AuthController {
      * @return ModelAndView
      */
     @RequestMapping(value = "/users/store", method = RequestMethod.POST)
-    public ModelAndView store(@ModelAttribute("registerForm") @Valid RegisterForm registerForm,
+    public ModelAndView store(@ModelAttribute("registerForm") @Valid UserForm registerForm,
             BindingResult bindingResult) {
         ModelAndView mv = new ModelAndView();
         if (bindingResult.hasErrors()) {
@@ -128,28 +127,10 @@ public class AuthController {
     public ModelAndView login(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("loginFormView");
         if (this.userService.doIsLoggedIn()) {
-            mv.setViewName("redirect:/posts");
+            mv.setViewName("redirect:/home");
             return mv;
         }
         mv.addObject("loginForm", new LoginForm());
-        return mv;
-    }
-
-    /**
-     * <h2>logout</h2>
-     * <p>
-     * logout
-     * </p>
-     *
-     * @param session
-     * @return
-     * @return ModelAndView
-     */
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public ModelAndView logout(HttpSession session) {
-        session.removeAttribute("loginedUser");
-        session.invalidate();
-        ModelAndView mv = new ModelAndView("redirect:/login");
         return mv;
     }
 }

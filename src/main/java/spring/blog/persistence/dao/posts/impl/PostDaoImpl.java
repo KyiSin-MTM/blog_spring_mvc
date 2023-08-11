@@ -102,7 +102,6 @@ public class PostDaoImpl implements PostDao {
      */
     @Override
     public void updatePostDao(Post post) {
-        // TODO Auto-generated method stub
         this.sessionFactory.getCurrentSession().merge(post);
     }
 

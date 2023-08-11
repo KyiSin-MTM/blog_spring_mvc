@@ -8,7 +8,7 @@
     </div>
     <div class="d-flex">
         <div class="me-3">
-            <c:url var="searchAction" value="/posts/search" />
+            <c:url var="searchAction" value="/users/search" />
             <form action="${searchAction}" method="GET" class="d-flex">
                 <input type="search" name="searchKey" class="form-control" value="${searchKey}"
                     placeholder="Search....." />

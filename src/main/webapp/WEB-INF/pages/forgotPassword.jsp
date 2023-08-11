@@ -49,7 +49,8 @@
 						</div>
 						<div class="col-12 mt-2">
 							<button type="submit" class="btn btn-primary me-2">Submit</button>
-						</div>
+                            <a class="text-decoration-none" href="<c:url value='/login'></c:url>"> Back to Login </a>
+						</div> 
 					</div>
 				</form:form>
 			</div>

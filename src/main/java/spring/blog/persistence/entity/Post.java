@@ -2,10 +2,14 @@ package spring.blog.persistence.entity;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -62,6 +66,16 @@ public class Post {
     private String description;
 
     /**
+     * <h2>userId</h2>
+     * <p>
+     * userId
+     * </p>
+     */
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    /**
      * <h2>created_at</h2>
      * <p>
      * created_at
@@ -104,6 +118,7 @@ public class Post {
         this.id = postDTO.getId();
         this.title = postDTO.getTitle();
         this.description = postDTO.getDescription();
+        this.user = postDTO.getUser();
         this.created_at = (Timestamp) postDTO.getCreated_at();
     }
 }

@@ -1,9 +1,12 @@
 package spring.blog.bl.services.users.impl;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -20,10 +23,13 @@ import spring.blog.bl.dto.CustomUserDetails;
 import spring.blog.bl.dto.UserDto;
 import spring.blog.bl.services.users.UserService;
 import spring.blog.persistence.dao.roles.RoleDao;
+import spring.blog.persistence.dao.userProfile.UserProfileDao;
 import spring.blog.persistence.dao.users.UserDao;
 import spring.blog.persistence.entity.Role;
 import spring.blog.persistence.entity.User;
-import spring.blog.web.form.RegisterForm;
+import spring.blog.persistence.entity.UserProfile;
+import spring.blog.web.form.UserEditForm;
+import spring.blog.web.form.UserForm;
 
 /**
  * <h2>UserServiceImpl Class</h2>
@@ -37,6 +43,25 @@ import spring.blog.web.form.RegisterForm;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
+
+    /**
+     * <h2>userProfileDao</h2>
+     * <p>
+     * userProfileDao
+     * </p>
+     */
+    @Autowired
+    private UserProfileDao userProfileDao;
+
+    /**
+     * <h2>session</h2>
+     * <p>
+     * session
+     * </p>
+     */
+    @Autowired
+    HttpSession session;
+
     /**
      * <h2>userDao</h2>
      * <p>
@@ -64,7 +89,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
      * @param registerForm
      */
     @Override
-    public void saveUser(@Valid RegisterForm registerForm) {
+    public void saveUser(@Valid UserForm registerForm) {
         User user = new User();
         user.setName(registerForm.getName());
         user.setEmail(registerForm.getEmail());
@@ -87,7 +112,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
      * @return
      */
     @Override
-    public boolean isEqualPwdWithConfirmPwd(@Valid RegisterForm registerForm) {
+    public boolean isEqualPwdWithConfirmPwd(@Valid UserForm registerForm) {
         if (registerForm.getPassword().equals(registerForm.getConfirmPassword())) {
             return true;
         }
@@ -130,6 +155,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     /**
+     * <h2>doGetLoginInfo</h2>
+     * <p>
+     * get logged in info
+     * </p>
+     * 
+     * @return
+     */
+    @Override
+    public User doGetLoginInfo() {
+        String user_email = null;
+        // TODO Auto-generated method stub
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            user_email = ((UserDetails) principal).getUsername();
+        } else {
+            user_email = principal.toString();
+        }
+        User user = userDao.dbFindByEmail(user_email);
+        return user;
+    }
+
+    /**
      * <h2>checkedEmail</h2>
      * <p>
      * check email exists or not
@@ -157,5 +204,81 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         List<User> users = this.userDao.dbGetAllUsers();
         List<UserDto> userDtoList = users.stream().map(user -> new UserDto(user)).collect(Collectors.toList());
         return userDtoList;
+    }
+
+    /**
+     * <h2>updateUser</h2>
+     * <p>
+     * update user
+     * </p>
+     * 
+     * @param userEditForm
+     */
+    @Override
+    public void updateUser(@Valid UserEditForm userEditForm) {
+        User user = this.userDao.dbFindUserById(userEditForm.getId());
+        user.setName(userEditForm.getName());
+        user.setEmail(userEditForm.getEmail());
+        this.userDao.dbUpdate(user);
+        if (userEditForm.getPhoto() != null) {
+            String path = session.getServletContext().getRealPath("/") + "WEB-INF" + File.separator + "resources"
+                    + File.separator + "images" + File.separator + userEditForm.getPhoto().getOriginalFilename();
+            File directory = new File(path).getParentFile();
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            try {
+                FileOutputStream fileout = new FileOutputStream(path);
+                fileout.write(userEditForm.getPhoto().getBytes());
+                fileout.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (user.getUserProfile() == null) {
+                UserProfile userProfile = new UserProfile();
+                userProfile.setPhotoPath("resources/images/" + userEditForm.getPhoto().getOriginalFilename());
+                userProfile.setUser(user);
+                this.userProfileDao.dbSave(userProfile);
+            } else {
+                UserProfile userProfile = this.userProfileDao.dbFindById(user.getUserProfile().getId());
+                userProfile.setPhotoPath("resources/images/" + userEditForm.getPhoto().getOriginalFilename());
+                userProfile.setUser(user);
+                this.userProfileDao.dbUpdate(userProfile);
+            }
+        }
+    }
+
+    /**
+     * <h2>getSearchUsers</h2>
+     * <p>
+     * searched user list
+     * </p>
+     * 
+     * @param searchKey
+     * @return
+     */
+    @Override
+    public List<UserDto> getSearchUsers(String searchKey) {
+        if (searchKey != "") {
+            List<User> users = this.userDao.getSearchUsersDao(searchKey);
+            List<UserDto> userDtoList = users.stream().map(user -> new UserDto(user)).collect(Collectors.toList());
+            return userDtoList;
+        } else {
+            return this.getAllUsers();
+        }
+    }
+
+    /**
+     * <h2> deleteUserById </h2>
+     * <p>
+     * delete user by id
+     * </p>
+     * 
+     * @param id
+     */
+    @Override
+    public void deleteUserById(Long id) {
+        User user = this.userDao.dbFindUserById(id);
+        this.userDao.deleteUserByIdDao(user);        
     }
 }

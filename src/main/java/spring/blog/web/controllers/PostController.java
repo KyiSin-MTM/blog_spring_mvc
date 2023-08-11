@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.blog.bl.dto.PostDto;
 import spring.blog.bl.services.posts.PostService;
+import spring.blog.bl.services.users.UserService;
 import spring.blog.persistence.entity.Post;
 import spring.blog.persistence.entity.User;
 import spring.blog.web.form.PostForm;
@@ -32,6 +34,15 @@ import spring.blog.web.form.PostForm;
  */
 @Controller
 public class PostController {
+    
+    /**
+     * <h2> userService</h2>
+     * <p>
+     * userService
+     * </p>
+     */
+    @Autowired
+    private UserService userService;
 
     /**
      * <h2>postService</h2>
@@ -93,11 +104,11 @@ public class PostController {
      */
     @RequestMapping("/posts")
     public ModelAndView index(HttpSession session) {
-        User user = (User) session.getAttribute("loginedUser");
-        System.out.println("user" + user);
+        User authUser = this.userService.doGetLoginInfo();
         List<PostDto> posts = this.postService.getAllPosts();
         ModelAndView mv = new ModelAndView("postListView");
         mv.addObject("posts", posts);
+        mv.addObject("authUser", authUser);
         return mv;
     }
 
@@ -113,6 +124,9 @@ public class PostController {
      */
     @RequestMapping("/posts/edit")
     public ModelAndView edit(@RequestParam("id") Long id) {
+        if(this.userService.doGetLoginInfo().getId() != id) {
+            throw new AccessDeniedException("You don't have permission to edit this post");
+        }
         PostDto postDto = this.postService.getPostById(id);
         ModelAndView mv = new ModelAndView("postEditView");
         mv.addObject("postForm", new PostForm(postDto));
@@ -154,6 +168,9 @@ public class PostController {
      */
     @RequestMapping("/posts/destroy")
     public String destroy(@RequestParam("id") Long id) {
+        if(this.userService.doGetLoginInfo().getId() != id) {
+            throw new AccessDeniedException("You don't have permission to delete this post");
+        }
         this.postService.deletePostById(id);
         return "redirect:/posts";
     }

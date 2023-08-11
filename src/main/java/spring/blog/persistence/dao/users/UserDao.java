@@ -17,4 +17,10 @@ public interface UserDao {
     public List<User> dbGetAllUsers();
 
     public void dbUpdate(User user);
+
+    public User dbFindUserById(Long id);
+
+    public List<User> getSearchUsersDao(String searchKey);
+
+    public void deleteUserByIdDao(User user);
 }

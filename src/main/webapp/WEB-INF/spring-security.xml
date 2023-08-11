@@ -11,26 +11,15 @@
     <http>
         <intercept-url pattern="/users"
             access="hasRole('ADMIN')" />
-        <!-- Job Post -->
+        <!-- Post -->
         <intercept-url pattern="/posts"
             access="hasAnyRole('USER','ADMIN')" />
-
         <intercept-url pattern="/posts/create"
             access="hasRole('USER')" />
-        <intercept-url pattern="/posts/edit"
+        <intercept-url pattern="/posts/edit/*"
             access="hasRole('USER')" />
-        <intercept-url pattern="/posts/delete"
+        <intercept-url pattern="/posts/delete/*"
             access="hasRole('USER')" />
-
-        <!-- <intercept-url pattern="/post/create/confirm" access="hasRole('COMPANY')" 
-            /> -->
-        <!-- <intercept-url pattern="/post/insert" access="hasRole('COMPANY')" 
-            /> -->
-        <!-- <intercept-url pattern="/post/edit" access="hasRole('COMPANY')" 
-            /> -->
-        <!-- <intercept-url pattern="/post/edit/confirm" access="hasRole('COMPANY')" 
-            /> <intercept-url pattern="/post/update" access="hasRole('COMPANY')" /> <intercept-url 
-            pattern="/post/delete" access="hasRole('COMPANY')" /> -->
 
         <!-- Job Type -->
         <intercept-url pattern="/jobType/list"
@@ -48,6 +37,8 @@
             access="hasRole('ADMIN')" />
         <intercept-url pattern="/deleteUser"
             access="hasRole('ADMIN')" />
+        <!-- <intercept-url pattern="/**"
+             access="isAuthenticated()"/> -->
 
         <form-login login-page="/login"
             login-processing-url="/loginCheck"
@@ -55,9 +46,11 @@
             username-parameter="useremail" password-parameter="password"
             default-target-url="/home" />
         <logout logout-url="/logout"
-            logout-success-url="/login" />
+            logout-success-url="/login" invalidate-session="true"/>
+        <remember-me key="uniqueAndSecret" user-service-ref="userService"
+            remember-me-parameter="remember-me"
+            remember-me-cookie="rememberMeCookie"/>
         <access-denied-handler error-page="/error" />
-
     </http>
 
     <authentication-manager>

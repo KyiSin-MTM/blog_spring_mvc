@@ -59,6 +59,12 @@
             <param-name>throwExceptionIfNoHandlerFound</param-name>
             <param-value>true</param-value>
         </init-param>
+        <multipart-config>
+            <location>/tmp</location> <!-- Temporary location to store uploaded files -->
+            <max-file-size>200000</max-file-size> <!-- Max file size in bytes -->
+            <max-request-size>400000</max-request-size> <!-- Max request size in bytes -->
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>

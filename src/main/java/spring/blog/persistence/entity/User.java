@@ -24,7 +24,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import spring.blog.bl.dto.UserDto;
-import spring.blog.web.form.RegisterForm;
+import spring.blog.web.form.UserEditForm;
+import spring.blog.web.form.UserForm;
 
 /**
  * <h2>User Class</h2>
@@ -42,6 +43,7 @@ import spring.blog.web.form.RegisterForm;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    
     /**
      * <h2>id</h2>
      * <p>
@@ -78,8 +80,23 @@ public class User {
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<Role>();
 
+    /**
+     * <h2> resetPassword</h2>
+     * <p>
+     * resetPassword
+     * </p>
+     */
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ResetPassword resetPassword;
+    
+    /**
+     * <h2> userProfile</h2>
+     * <p>
+     * userProfile
+     * </p>
+     */
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private UserProfile userProfile;
 
     /**
      * <h2>password</h2>
@@ -115,11 +132,24 @@ public class User {
      * 
      * @param userForm
      */
-    public User(RegisterForm userForm) {
+    public User(UserForm userForm) {
         this.name = userForm.getName();
         this.email = userForm.getEmail();
         this.roles = userForm.getRoles();
         this.password = userForm.getPassword();
+    }
+    
+    /**
+     * <h2> Constructor for User </h2>
+     * <p>
+     * Constructor for User
+     * </p>
+     * @param userEditForm
+     */
+    public User(UserEditForm userEditForm) {
+        this.id = userEditForm.getId();
+        this.name = userEditForm.getName();
+        this.email = userEditForm.getEmail();
     }
 
     /**

@@ -13,7 +13,8 @@
         <div class="me-3">
             <c:url var="searchAction" value="/posts/search" />
             <form action="${searchAction}" method="GET" class="d-flex">
-                <input type="search" name="searchKey" class="form-control" value="${searchKey}"
+                <input type="search" name="searchKey"
+                    class="form-control" value="${searchKey}"
                     placeholder="Search....." />
                 <button type="submit" class="btn btn-success">Search</button>
             </form>
@@ -36,13 +37,16 @@
                     <td>${post.title}</td>
                     <td>${post.description}</td>
                     <td>${post.created_at}</td>
-                    <td><c:url var="editAction"
-                            value="/posts/edit?id=${post.id}" /> <c:url
-                            var="deleteAction"
-                            value="/posts/destroy?id=${post.id}" /> <a
-                        class="btn btn-info" href="${editAction}">Edit</a>
-                        <a class="btn btn-danger" href="${deleteAction}"
-                        onclick="return confirm('Are you sure want to delete?')">Delete</a></td>
+                    <td><c:if test="${post.user.id == authUser.id}">
+                            <c:url var="editAction"
+                                value="/posts/edit?id=${post.id}" />
+                            <c:url var="deleteAction"
+                                value="/posts/destroy?id=${post.id}" />
+                            <a class="btn btn-info" href="${editAction}">Edit</a>
+                            <a class="btn btn-danger"
+                                href="${deleteAction}"
+                                onclick="return confirm('Are you sure want to delete?')">Delete</a>
+                        </c:if></td>
                 </tr>
             </c:forEach>
         </table>

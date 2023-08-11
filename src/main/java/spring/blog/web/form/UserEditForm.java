@@ -1,32 +1,22 @@
 package spring.blog.web.form;
 
-import java.util.List;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import spring.blog.persistence.entity.Role;
 import spring.blog.persistence.entity.User;
 
-/**
- * <h2>RegisterForm Class</h2>
- * <p>
- * Process for Displaying RegisterForm
- * </p>
- * 
- * @author KyiSinShoonLaeLinn
- *
- */
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterForm {
-
+public class UserEditForm {
+    
     /**
      * <h2>id</h2>
      * <p>
@@ -54,39 +44,7 @@ public class RegisterForm {
     @Email(message = "Email format is invalid")
     private String email;
 
-    /**
-     * <h2>roles</h2>
-     * <p>
-     * roles
-     * </p>
-     */
-    private List<Role> roles;
-
-    /**
-     * <h2>role</h2>
-     * <p>
-     * role
-     * </p>
-     */
-    private Role role;
-
-    /**
-     * <h2>password</h2>
-     * <p>
-     * password
-     * </p>
-     */
-    @NotBlank(message = "Password field is required")
-    private String password;
-
-    /**
-     * <h2>confirmPassword</h2>
-     * <p>
-     * confirmPassword
-     * </p>
-     */
-    @NotBlank(message = "Confirm password field is required")
-    private String confirmPassword;
+    private MultipartFile photo;
 
     /**
      * <h2>Constructor for RegisterForm</h2>
@@ -96,11 +54,9 @@ public class RegisterForm {
      * 
      * @param user
      */
-    public RegisterForm(User user) {
+    public UserEditForm(User user) {
         this.id = user.getId();
         this.name = user.getName();
-        this.email = user.getName();
-        this.roles = user.getRoles();
-        this.password = user.getPassword();
+        this.email = user.getEmail();
     }
 }

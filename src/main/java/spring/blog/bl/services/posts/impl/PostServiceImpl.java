@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import spring.blog.bl.dto.PostDto;
 import spring.blog.bl.services.posts.PostService;
+import spring.blog.bl.services.users.UserService;
 import spring.blog.persistence.dao.posts.PostDao;
 import spring.blog.persistence.entity.Post;
+import spring.blog.persistence.entity.User;
 import spring.blog.web.form.PostForm;
 
 /**
@@ -23,6 +25,15 @@ import spring.blog.web.form.PostForm;
  */
 @Service
 public class PostServiceImpl implements PostService {
+    
+    /**
+     * <h2> userService</h2>
+     * <p>
+     * userService
+     * </p>
+     */
+    @Autowired
+    private UserService userService;
 
     /**
      * <h2>postDao</h2>
@@ -44,8 +55,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public void savePost(PostForm postForm) {
         Post post = new Post();
+        User user = this.userService.doGetLoginInfo();
         post.setTitle(postForm.getTitle());
         post.setDescription(postForm.getDescription());
+        post.setUser(user);
         this.postDao.savePostDao(post);
     }
 

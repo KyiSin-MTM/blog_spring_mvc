@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import spring.blog.persistence.entity.Post;
+import spring.blog.persistence.entity.User;
 
 /**
  * <h2>PostDto Class</h2>
@@ -46,6 +47,14 @@ public class PostDto {
      * </p>
      */
     private String description;
+   
+    /**
+     * <h2> user</h2>
+     * <p>
+     * user
+     * </p>
+     */
+    private User user;
 
     /**
      * <h2>created_at</h2>
@@ -67,6 +76,7 @@ public class PostDto {
         this.id = post.getId();
         this.title = post.getTitle();
         this.description = post.getDescription();
+        this.user = post.getUser();
         this.created_at = post.getCreated_at();
     }
 }

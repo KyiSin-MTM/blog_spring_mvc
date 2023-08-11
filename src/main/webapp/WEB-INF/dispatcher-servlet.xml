@@ -23,7 +23,7 @@
     <!-- MVC, Resource, Property Configuration -->
     <mvc:annotation-driven />
     <mvc:resources mapping="/resources/**"
-        location="/resources/" />
+        location="/WEB-INF/resources/" />
 
     <!-- Tiles Configuration -->
     <bean id="viewResolver"
@@ -44,10 +44,12 @@
             </list>
         </property>
     </bean>
-    
-    <bean id="viewResolver1" class="org.springframework.web.servlet.view.XmlViewResolver">
-        <property name="order" value="1"/>
-        <property name="location" value="/WEB-INF/spring-excel-views.xml"/>
+
+    <bean id="viewResolver1"
+        class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="order" value="1" />
+        <property name="location"
+            value="/WEB-INF/spring-excel-views.xml" />
     </bean>
 
     <!-- View Configuration -->
@@ -100,6 +102,14 @@
     <bean id="userService"
         class="spring.blog.bl.services.users.impl.UserServiceImpl"></bean>
         
+    <bean id="rememberMeCookie"
+        class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+        <constructor-arg
+            value="uniqueAndSecret" />
+        <constructor-arg
+            ref="userService" />
+    </bean>
+
     <!-- Mail Configuration -->
     <bean id="mailSender"
         class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -116,5 +126,12 @@
                 <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
             </props>
         </property>
+    </bean>
+
+    <!-- File Upload Configuration -->
+    <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- setting maximum upload size -->
+        <property name="maxUploadSize" value="200000" />
     </bean>
 </beans>

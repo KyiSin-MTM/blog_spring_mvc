@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -47,7 +48,7 @@ public class UserDaoImpl implements UserDao {
      * </p>
      */
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     /**
      * <h2>saveUserDao</h2>
@@ -137,5 +138,50 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void dbUpdate(User user) {
         this.sessionFactory.getCurrentSession().merge(user);
+    }
+
+    /**
+     * <h2> dbFindUserById </h2>
+     * <p>
+     * find user by id
+     * </p>
+     * 
+     * @param id
+     * @return
+     */
+    @Override
+    public User dbFindUserById(Long id) {
+        return this.sessionFactory.getCurrentSession().get(User.class, id);
+    }
+
+    /**
+     * <h2> getSearchUsersDao </h2>
+     * <p>
+     * searched user list
+     * </p>
+     * 
+     * @param searchKey
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<User> getSearchUsersDao(String searchKey) {
+        String stmt = "SELECT DISTINCT u FROM User u JOIN u.roles r WHERE u.name LIKE CONCAT('%', :searchKey, '%') OR r.name LIKE CONCAT('%', :searchKey, '%')";;
+        Query<User> query = this.sessionFactory.getCurrentSession().createQuery(stmt).setParameter("searchKey",
+                searchKey);
+        return query.getResultList();
+    }
+
+    /**
+     * <h2> deleteUserByIdDao </h2>
+     * <p>
+     * delete user by id
+     * </p>
+     * 
+     * @param user
+     */
+    @Override
+    public void deleteUserByIdDao(User user) {
+        this.sessionFactory.getCurrentSession().delete(user);        
     }
 }

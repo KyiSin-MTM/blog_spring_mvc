@@ -7,4 +7,16 @@
 		<put-attribute name="body"
 			value="/WEB-INF/pages/users/list.jsp" />
 	</definition>
+    <!-- Profile View -->
+    <definition name="profileView" extends="template">
+        <put-attribute name="title" value="User Profile" />
+        <put-attribute name="body"
+            value="/WEB-INF/pages/users/profile.jsp" />
+    </definition>
+    <!-- User Edit View -->
+    <definition name="userEditView" extends="template">
+        <put-attribute name="title" value="User Edit" />
+        <put-attribute name="body"
+            value="/WEB-INF/pages/users/edit.jsp" />
+    </definition>
 </tiles-definitions>
