@@ -17,9 +17,9 @@
         <intercept-url pattern="/users/search"
             access="hasRole('ADMIN')" />
         <intercept-url pattern="/users/edit"
-            access="hasRole('USER')" />
+            access="hasAnyRole('USER', 'ADMIN')" />
         <intercept-url pattern="/users/update"
-            access="hasRole('USER')" />
+            access="hasAnyRole('USER', 'ADMIN')" />
         <!-- Post -->
         <intercept-url pattern="/posts"
             access="hasAnyRole('USER','ADMIN')" />
@@ -50,7 +50,7 @@
         <remember-me key="uniqueAndSecret" user-service-ref="userService"
             remember-me-parameter="remember-me"
             remember-me-cookie="rememberMeCookie"/>
-        <access-denied-handler error-page="/error" />
+        <!-- <access-denied-handler error-page="/error" /> -->
     </http>
 
     <authentication-manager>

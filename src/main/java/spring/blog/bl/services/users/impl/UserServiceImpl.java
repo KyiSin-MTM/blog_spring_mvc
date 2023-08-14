@@ -2,6 +2,8 @@ package spring.blog.bl.services.users.impl;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -221,8 +223,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setEmail(userEditForm.getEmail());
         this.userDao.dbUpdate(user);
         if (userEditForm.getPhoto() != null) {
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+            String formattedDateTime = now.format(formatter);
             String path = session.getServletContext().getRealPath("/") + "WEB-INF" + File.separator + "resources"
-                    + File.separator + "images" + File.separator + userEditForm.getPhoto().getOriginalFilename();
+                    + File.separator + "images" + File.separator + formattedDateTime + "_" + userEditForm.getPhoto().getOriginalFilename();
             File directory = new File(path).getParentFile();
             if (!directory.exists()) {
                 directory.mkdirs();
@@ -231,17 +236,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 FileOutputStream fileout = new FileOutputStream(path);
                 fileout.write(userEditForm.getPhoto().getBytes());
                 fileout.close();
+                if(user.getUserProfile().getPhotoPath() != null) {
+                    String oldImagePath = session.getServletContext().getRealPath("/") + "WEB-INF" + File.separator + user.getUserProfile().getPhotoPath();
+                    File oldImage = new File(oldImagePath);
+                    if(oldImage.exists()) {
+                        oldImage.delete();
+                    }
+                }               
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            String imagePath = "resources/images/" + formattedDateTime + "_" + userEditForm.getPhoto().getOriginalFilename();
             if (user.getUserProfile() == null) {
                 UserProfile userProfile = new UserProfile();
-                userProfile.setPhotoPath("resources/images/" + userEditForm.getPhoto().getOriginalFilename());
+                userProfile.setPhotoPath(imagePath);
                 userProfile.setUser(user);
                 this.userProfileDao.dbSave(userProfile);
             } else {
                 UserProfile userProfile = this.userProfileDao.dbFindById(user.getUserProfile().getId());
-                userProfile.setPhotoPath("resources/images/" + userEditForm.getPhoto().getOriginalFilename());
+                userProfile.setPhotoPath(imagePath);
                 userProfile.setUser(user);
                 this.userProfileDao.dbUpdate(userProfile);
             }
@@ -279,6 +292,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void deleteUserById(Long id) {
         User user = this.userDao.dbFindUserById(id);
+        if(user.getUserProfile().getPhotoPath() != null) {
+            String oldImagePath = session.getServletContext().getRealPath("/") + "WEB-INF" + File.separator + user.getUserProfile().getPhotoPath();
+            File oldImage = new File(oldImagePath);
+            if(oldImage.exists()) {
+                oldImage.delete();
+            }
+        }    
         this.userDao.deleteUserByIdDao(user);        
     }
 }

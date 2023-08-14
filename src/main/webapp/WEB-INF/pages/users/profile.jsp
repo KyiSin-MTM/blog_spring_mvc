@@ -23,7 +23,7 @@
                 class="idd">${authUser.email}</span>
             <div class=" d-flex mt-2">
                 <button class="btn border-dark bg-secondary">
-                    <a href="<c:url value='/user/edit' />"
+                    <a href="<c:url value='/users/edit' />"
                         class="text-decoration-none text-white">Edit
                         Profile</a>
                 </button>
