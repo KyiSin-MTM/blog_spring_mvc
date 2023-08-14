@@ -9,34 +9,34 @@
     http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http>
+        <!-- User -->
         <intercept-url pattern="/users"
             access="hasRole('ADMIN')" />
+        <intercept-url pattern="/users/destroy/*"
+            access="hasRole('ADMIN')" />
+        <intercept-url pattern="/users/search"
+            access="hasRole('ADMIN')" />
+        <intercept-url pattern="/users/edit"
+            access="hasRole('USER')" />
+        <intercept-url pattern="/users/update"
+            access="hasRole('USER')" />
         <!-- Post -->
         <intercept-url pattern="/posts"
             access="hasAnyRole('USER','ADMIN')" />
+        <intercept-url pattern="/posts/search"
+            access="hasAnyRole('USER','ADMIN')" />  
         <intercept-url pattern="/posts/create"
+            access="hasRole('USER')" />
+        <intercept-url pattern="/posts/store"
             access="hasRole('USER')" />
         <intercept-url pattern="/posts/edit/*"
             access="hasRole('USER')" />
-        <intercept-url pattern="/posts/delete/*"
+        <intercept-url pattern="/posts/update/*"
             access="hasRole('USER')" />
-
-        <!-- Job Type -->
-        <intercept-url pattern="/jobType/list"
-            access="hasRole('ADMIN')" />
-
-        <intercept-url pattern="/createUser"
-            access="hasRole('ADMIN')" />
-        <intercept-url pattern="/saveAdmin"
-            access="hasRole('ADMIN')" />
-        <intercept-url pattern="/userList"
-            access="hasRole('ADMIN')" />
-        <intercept-url pattern="/editUser"
-            access="hasRole('ADMIN')" />
-        <intercept-url pattern="/updateUser"
-            access="hasRole('ADMIN')" />
-        <intercept-url pattern="/deleteUser"
-            access="hasRole('ADMIN')" />
+        <intercept-url pattern="/posts/destroy/*"
+            access="hasRole('USER')" />
+        <intercept-url pattern="/posts/excel/export"
+            access="hasRole('ADMIN')" />    
         <!-- <intercept-url pattern="/**"
              access="isAuthenticated()"/> -->
 

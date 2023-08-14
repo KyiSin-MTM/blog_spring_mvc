@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -100,9 +99,9 @@ public class UserController {
         mv.setViewName("redirect:/profile");
         return mv;
     }
-    
+
     /**
-     * <h2> destroy</h2>
+     * <h2>destroy</h2>
      * <p>
      * delete user by id
      * </p>
