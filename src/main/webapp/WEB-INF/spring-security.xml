@@ -8,7 +8,7 @@
     http://www.springframework.org/schema/security  
     http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http>
+    <http auto-config="true">
         <!-- User -->
         <intercept-url pattern="/users"
             access="hasRole('ADMIN')" />
@@ -19,6 +19,8 @@
         <intercept-url pattern="/users/edit"
             access="hasAnyRole('USER', 'ADMIN')" />
         <intercept-url pattern="/users/update"
+            access="hasAnyRole('USER', 'ADMIN')" />
+        <intercept-url pattern="/profile"
             access="hasAnyRole('USER', 'ADMIN')" />
         <!-- Post -->
         <intercept-url pattern="/posts"
@@ -47,9 +49,13 @@
             default-target-url="/home" />
         <logout logout-url="/logout"
             logout-success-url="/login" invalidate-session="true"/>
-        <remember-me key="uniqueAndSecret" user-service-ref="userService"
+        <!-- <remember-me key="uniqueAndSecret" user-service-ref="userService"
             remember-me-parameter="remember-me"
-            remember-me-cookie="rememberMeCookie"/>
+            remember-me-cookie="rememberMeCookie"/> -->
+        <remember-me 
+            user-service-ref="userService"
+            token-repository-ref="jdbcTokenRepository" 
+            token-validity-seconds="1209600" />
         <!-- <access-denied-handler error-page="/error" /> -->
     </http>
 

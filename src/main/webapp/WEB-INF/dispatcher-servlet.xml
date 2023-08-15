@@ -102,12 +102,17 @@
     <bean id="userService"
         class="spring.blog.bl.services.users.impl.UserServiceImpl"></bean>
         
-    <bean id="rememberMeCookie"
+    <!-- Remember Login Configuration -->
+    <!-- <bean id="rememberMeCookie"
         class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
         <constructor-arg
             value="uniqueAndSecret" />
         <constructor-arg
             ref="userService" />
+    </bean> -->
+    
+    <bean id="jdbcTokenRepository" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
+        <property name="dataSource" ref="dataSource" />
     </bean>
 
     <!-- Mail Configuration -->
