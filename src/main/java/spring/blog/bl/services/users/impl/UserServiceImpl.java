@@ -2,6 +2,7 @@ package spring.blog.bl.services.users.impl;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -167,7 +168,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User doGetLoginInfo() {
         String user_email = null;
-        // TODO Auto-generated method stub
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             user_email = ((UserDetails) principal).getUsername();
@@ -222,42 +222,46 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setName(userEditForm.getName());
         user.setEmail(userEditForm.getEmail());
         this.userDao.dbUpdate(user);
-        if (userEditForm.getPhoto() != null) {
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-            String formattedDateTime = now.format(formatter);
-            String path = session.getServletContext().getRealPath("/") + "WEB-INF" + File.separator + "resources"
-                    + File.separator + "images" + File.separator + formattedDateTime + "_" + userEditForm.getPhoto().getOriginalFilename();
-            File directory = new File(path).getParentFile();
-            if (!directory.exists()) {
-                directory.mkdirs();
+        if (userEditForm.getPhoto() == null) {
+            return;
+        }
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        String formattedDateTime = now.format(formatter);
+        String path = session.getServletContext().getRealPath("/") + "WEB-INF" + File.separator + "resources"
+                + File.separator + "images" + File.separator + formattedDateTime + "_"
+                + userEditForm.getPhoto().getOriginalFilename();
+        File directory = new File(path).getParentFile();
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        try {
+            FileOutputStream fileout = new FileOutputStream(path);
+            fileout.write(userEditForm.getPhoto().getBytes());
+            fileout.close();
+            if (user.getUserProfile().getPhotoPath() != null) {
+                String oldImagePath = session.getServletContext().getRealPath("/") + "WEB-INF" + File.separator
+                        + user.getUserProfile().getPhotoPath();
+                File oldImage = new File(oldImagePath);
+                if (oldImage.exists()) {
+                    oldImage.delete();
+                }
             }
-            try {
-                FileOutputStream fileout = new FileOutputStream(path);
-                fileout.write(userEditForm.getPhoto().getBytes());
-                fileout.close();
-                if(user.getUserProfile().getPhotoPath() != null) {
-                    String oldImagePath = session.getServletContext().getRealPath("/") + "WEB-INF" + File.separator + user.getUserProfile().getPhotoPath();
-                    File oldImage = new File(oldImagePath);
-                    if(oldImage.exists()) {
-                        oldImage.delete();
-                    }
-                }               
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            String imagePath = "resources/images/" + formattedDateTime + "_" + userEditForm.getPhoto().getOriginalFilename();
-            if (user.getUserProfile() == null) {
-                UserProfile userProfile = new UserProfile();
-                userProfile.setPhotoPath(imagePath);
-                userProfile.setUser(user);
-                this.userProfileDao.dbSave(userProfile);
-            } else {
-                UserProfile userProfile = this.userProfileDao.dbFindById(user.getUserProfile().getId());
-                userProfile.setPhotoPath(imagePath);
-                userProfile.setUser(user);
-                this.userProfileDao.dbUpdate(userProfile);
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String imagePath = "resources/images/" + formattedDateTime + "_"
+                + userEditForm.getPhoto().getOriginalFilename();
+        if (user.getUserProfile() == null) {
+            UserProfile userProfile = new UserProfile();
+            userProfile.setPhotoPath(imagePath);
+            userProfile.setUser(user);
+            this.userProfileDao.dbSave(userProfile);
+        } else {
+            UserProfile userProfile = this.userProfileDao.dbFindById(user.getUserProfile().getId());
+            userProfile.setPhotoPath(imagePath);
+            userProfile.setUser(user);
+            this.userProfileDao.dbUpdate(userProfile);
         }
     }
 
@@ -282,7 +286,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     /**
-     * <h2> deleteUserById </h2>
+     * <h2>deleteUserById</h2>
      * <p>
      * delete user by id
      * </p>
@@ -292,13 +296,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void deleteUserById(Long id) {
         User user = this.userDao.dbFindUserById(id);
-        if(user.getUserProfile().getPhotoPath() != null) {
-            String oldImagePath = session.getServletContext().getRealPath("/") + "WEB-INF" + File.separator + user.getUserProfile().getPhotoPath();
+        if (user.getUserProfile().getPhotoPath() != null) {
+            String oldImagePath = session.getServletContext().getRealPath("/") + "WEB-INF" + File.separator
+                    + user.getUserProfile().getPhotoPath();
             File oldImage = new File(oldImagePath);
-            if(oldImage.exists()) {
+            if (oldImage.exists()) {
                 oldImage.delete();
             }
-        }    
-        this.userDao.deleteUserByIdDao(user);        
+        }
+        this.userDao.deleteUserByIdDao(user);
     }
 }

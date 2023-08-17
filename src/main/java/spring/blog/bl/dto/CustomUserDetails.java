@@ -3,6 +3,7 @@ package spring.blog.bl.dto;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -150,5 +151,38 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+    
+//    @Override
+//    public boolean equals(Object otherUser) {
+//        if (this == otherUser) return true;
+//        if (otherUser == null || getClass() != otherUser.getClass()) return false;
+//
+//        UserDetails that = (UserDetails) otherUser;
+//
+//        return username != null ? username.equals(that.getUsername()) : that.getUsername() == null;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return username != null ? username.hashCode() : 0;
+//    }
+    
+    @Override
+    public boolean equals(Object otherUser) {
+        if (this == otherUser) {
+            return true;
+        }
+        if (otherUser == null || getClass() != otherUser.getClass()) {
+            return false;
+        }
+        
+        CustomUserDetails that = (CustomUserDetails) otherUser;
+        return Objects.equals(getUsername(), that.getUsername()); // Use a unique identifier, such as username or user ID
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUsername()); // Use a unique identifier, such as username or user ID
     }
 }

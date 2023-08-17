@@ -172,5 +172,7 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
         User user = this.userDao.dbFindByEmail(resetPasswordForm.getEmail());
         user.setPassword(passwordEncoder.encode(resetPasswordForm.getPassword()));
         this.userDao.dbUpdate(user);
+        ResetPassword resetPassword = this.resetPasswordDao.findByUserIdDao(user.getId());
+        this.resetPasswordDao.deleteResetToken(resetPassword);
     }
 }

@@ -9,4 +9,8 @@ public interface ResetPasswordDao {
     public void update(ResetPassword resetPassword);
 
     public ResetPassword findByTokenDao(String token);
+
+    public void deleteResetToken(ResetPassword resetPassword);
+
+    public ResetPassword findByUserIdDao(Long id);
 }

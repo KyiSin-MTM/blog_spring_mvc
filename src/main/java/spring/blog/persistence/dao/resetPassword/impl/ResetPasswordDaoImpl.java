@@ -73,4 +73,32 @@ public class ResetPasswordDaoImpl implements ResetPasswordDao {
                 .uniqueResult();
         return resetPassword;
     }
+
+    /**
+     * <h2> findByUserIdDao </h2>
+     * <p>
+     * find reset password by user id
+     * </p>
+     * 
+     * @param userId
+     * @return
+     */
+    @Override
+    public ResetPassword findByUserIdDao(Long userId) {
+        ResetPassword resetPassword = (ResetPassword) this.sessionFactory.getCurrentSession().createQuery("SELECT r FROM ResetPassword r where r.user.id = :userId").setParameter("userId", userId).uniqueResult();
+        return resetPassword;
+    }
+
+    /**
+     * <h2> deleteResetToken </h2>
+     * <p>
+     * delete reset token after password reset 
+     * </p>
+     * 
+     * @param resetPassword
+     */
+    @Override
+    public void deleteResetToken(ResetPassword resetPassword) {
+        this.sessionFactory.getCurrentSession().delete(resetPassword);
+    }
 }
