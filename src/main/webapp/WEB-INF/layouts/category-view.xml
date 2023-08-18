@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<!-- Category List View -->
+	<definition name="categoryListView" extends="template">
+		<put-attribute name="title" value="Category List" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/categories/list.jsp" />
+	</definition>
+	<!-- Category Create View -->
+	<definition name="categoryCreateView" extends="template">
+		<put-attribute name="title" value="Category Create" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/categories/create.jsp" />
+	</definition>
+	<!-- Category Edit View -->
+	<definition name="categoryEditView" extends="template">
+		<put-attribute name="title" value="Category Edit" />
+		<put-attribute name="body"
+			value="/WEB-INF/pages/categories/edit.jsp" />
+	</definition>
+</tiles-definitions>
